@@ -1,0 +1,8 @@
+{
+  "name": "yup-env",
+  "version": "1.0.0",
+  "description": "Environment variables parsing and validation using yup.",
+  "repository": "https://github.com/mckacz/yup-env",
+  "author": "Maciej Kaczmarek <maciej@kaczmarek.io>",
+  "license": "MIT"
+}
