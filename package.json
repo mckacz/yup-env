@@ -4,5 +4,61 @@
   "description": "Environment variables parsing and validation using yup.",
   "repository": "https://github.com/mckacz/yup-env",
   "author": "Maciej Kaczmarek <maciej@kaczmarek.io>",
-  "license": "MIT"
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src/{,**/}*.ts",
+    "lint:ci": "eslint -o test-reports/eslint.xml -f junit src/{,**/}*.ts",
+    "test": "jest",
+    "test:ci": "jest --reporters default --reporters jest-junit --ci"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@types/lodash.set": "^4.3.6",
+    "@types/node": "^13.11.1",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
+    "eslint": "^6.8.0",
+    "jest": "^25.3.0",
+    "jest-junit": "^10.0.0",
+    "ts-jest": "^25.3.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@types/yup": "^0.26.35",
+    "camelcase": "^6.0.0",
+    "lodash.set": "^4.3.2",
+    "yup": "^0.28.3"
+  },
+  "jest": {
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "src/*.ts"
+    ],
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "testRegex": "\\.spec.ts$",
+    "testEnvironment": "node",
+    "reporters": [
+      "default"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json",
+      "node"
+    ]
+  },
+  "jest-junit": {
+    "outputDirectory": "test-reports",
+    "outputName": "jest.xml"
+  }
 }
