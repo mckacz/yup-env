@@ -38,7 +38,7 @@
     "yup": "^0.28.3"
   },
   "jest": {
-    "collectCoverage": false,
+    "collectCoverage": true,
     "collectCoverageFrom": [
       "src/*.ts"
     ],
