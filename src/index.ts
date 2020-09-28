@@ -2,14 +2,14 @@ import * as yup from 'yup'
 import set from 'lodash.set'
 import camelcase from 'camelcase'
 
-export interface Options<T extends object> {
+export interface Options<T extends object | undefined | null> {
   schema: yup.ObjectSchema<T>;
   env?: Record<string, string | undefined>;
   prefix?: string;
   levelSeparator?: string;
 }
 
-function yupEnv<T extends object>(options: Options<T>): yup.InferType<yup.ObjectSchema<T>> {
+function yupEnv<T extends object | undefined | null>(options: Options<T>): yup.InferType<yup.ObjectSchema<T>> {
   const { schema, env, prefix, levelSeparator } = {
     env:            process.env,
     prefix:         '',
@@ -17,7 +17,7 @@ function yupEnv<T extends object>(options: Options<T>): yup.InferType<yup.Object
     ...options,
   }
 
-  const input: object = {}
+  const input: object | undefined | null = {}
 
   for (const key of Object.getOwnPropertyNames(env)) {
     if (!key.startsWith(prefix)) {
