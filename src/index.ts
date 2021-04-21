@@ -1,15 +1,16 @@
 import * as yup from 'yup'
+import { ObjectShape } from 'yup/lib/object'
 import set from 'lodash.set'
 import camelcase from 'camelcase'
 
-export interface Options<T extends object | undefined | null> {
+export interface Options<T extends ObjectShape> {
   schema: yup.ObjectSchema<T>;
   env?: Record<string, string | undefined>;
   prefix?: string;
   levelSeparator?: string;
 }
 
-function yupEnv<T extends object | undefined | null>(options: Options<T>): yup.InferType<yup.ObjectSchema<T>> {
+function yupEnv<T extends ObjectShape>(options: Options<T>): yup.InferType<yup.ObjectSchema<T>> {
   const { schema, env, prefix, levelSeparator } = {
     env:            process.env,
     prefix:         '',

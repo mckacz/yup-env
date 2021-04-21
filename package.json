@@ -1,6 +1,6 @@
 {
   "name": "yup-env",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Environment variables parsing and validation using yup.",
   "repository": "https://github.com/mckacz/yup-env",
   "author": "Maciej Kaczmarek <maciej@kaczmarek.io>",
@@ -20,22 +20,22 @@
     "test:ci": "jest --reporters default --reporters jest-junit --ci"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.14",
+    "@types/jest": "^26.0.22",
     "@types/lodash.set": "^4.3.6",
-    "@types/node": "^14.11.2",
-    "@typescript-eslint/eslint-plugin": "^4.2.0",
-    "@typescript-eslint/parser": "^4.2.0",
-    "eslint": "^7.10.0",
-    "jest": "^26.4.2",
-    "jest-junit": "^11.1.0",
-    "ts-jest": "^26.4.0",
-    "typescript": "^4.0.3"
+    "@types/node": "^14.14.41",
+    "@types/yup": "^0.29.11",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
+    "jest": "^26.6.3",
+    "jest-junit": "^12.0.0",
+    "ts-jest": "^26.5.5",
+    "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@types/yup": "^0.29.7",
-    "camelcase": "^6.0.0",
+    "camelcase": "^6.2.0",
     "lodash.set": "^4.3.2",
-    "yup": "^0.29.3"
+    "yup": "^0.32.9"
   },
   "jest": {
     "collectCoverage": true,
