@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import parse from './index'
+import parse, { ValidateOptions } from './index'
 
 describe('yup-env', () => {
   test('one level', () => {
@@ -65,6 +65,27 @@ describe('yup-env', () => {
       foo:    'quuux',
       barBaz: 42,
     })
+  })
+
+  test('one level with validate options', () => {
+    const schema = yup.object()
+      .noUnknown()
+      .shape({
+        foo:    yup.string().min(5),
+        barBaz: yup.number().lessThan(3),
+      })
+
+    const env = {
+      FOO:     'qux',
+      BAR_BAZ: '42',
+      QUX:     'abc',
+    }
+
+    const validate: ValidateOptions = { abortEarly: false }
+    jest.spyOn(schema, 'validateSync')
+
+    expect(() => parse({ schema, env, validate })).toThrow('2 errors occurred')
+    expect(schema.validateSync).toHaveBeenCalledWith(expect.anything(), validate)
   })
 
   test('nested', () => {

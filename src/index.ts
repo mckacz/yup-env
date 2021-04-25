@@ -1,24 +1,31 @@
 import * as yup from 'yup'
-import { ObjectShape } from 'yup/lib/object'
 import set from 'lodash.set'
 import camelcase from 'camelcase'
+import type { ObjectShape as YupObjectShape } from 'yup/lib/object'
+import type { ValidateOptions as YupValidateOptions } from 'yup/lib/types'
 
-export interface Options<T extends ObjectShape> {
-  schema: yup.ObjectSchema<T>;
+export type ObjectShape = YupObjectShape
+export type ValidateOptions<TContext = {}> = YupValidateOptions<TContext>
+
+export interface Options<TShape extends ObjectShape, TContext> {
+  schema: yup.ObjectSchema<TShape>;
   env?: Record<string, string | undefined>;
   prefix?: string;
   levelSeparator?: string;
+  validate?: ValidateOptions<TContext>;
 }
 
-function yupEnv<T extends ObjectShape>(options: Options<T>): yup.InferType<yup.ObjectSchema<T>> {
-  const { schema, env, prefix, levelSeparator } = {
+function yupEnv<TShape extends ObjectShape, TContext>(options: Options<TShape, TContext>):
+  yup.InferType<yup.ObjectSchema<TShape>> {
+
+  const { schema, env, prefix, levelSeparator, validate } = {
     env:            process.env,
     prefix:         '',
     levelSeparator: '__',
     ...options,
   }
 
-  const input: object | undefined | null = {}
+  const input: Record<string, unknown> = {}
 
   for (const key of Object.getOwnPropertyNames(env)) {
     if (!key.startsWith(prefix)) {
@@ -32,7 +39,10 @@ function yupEnv<T extends ObjectShape>(options: Options<T>): yup.InferType<yup.O
     set(input, propertyPath, env[key])
   }
 
-  return schema.validateSync(schema.cast(input)) as unknown as yup.InferType<yup.ObjectSchema<T>>
+  return schema.validateSync(
+    schema.cast(input),
+    validate,
+  )
 }
 
 export default yupEnv

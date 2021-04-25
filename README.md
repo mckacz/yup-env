@@ -16,6 +16,7 @@ This is simple library to parse and validate environment variables using `yup` w
 You can get latest release with type definitions from NPM:
 
 ```
+npm install @types/yup --save-dev
 npm install yup yup-env --save
 ```
 
@@ -55,7 +56,7 @@ More examples in [examples](./examples) directory.
 The library exposes single function as default export with following signature
 
 ```ts
-function yupEnv<T extends object>(options: Options<T>): yup.InferType<yup.ObjectSchema<T>>; 
+function yupEnv<TShape extends object, TContext>(options: Options<TShape, TContext>): yup.InferType<yup.ObjectSchema<T>>; 
 ```
 
 The function accepts following options:
@@ -65,4 +66,5 @@ Name             | Type                     | Description                       
 `schema`         | `yup.ObjectSchema`       | Object schema used to cast and validate environment variables. | :heavy_check_mark: |
 `env`            | `Record<string, string>` | Environment variables to process.                              |                    | value of `process.env`
 `prefix`         | `string`                 | Prefix of environment variables names to process.              |                    | `''` (empty string)
-`levelSeparator` | `string`                 | Nested structures path separator.                              |                    | `__` 
+`levelSeparator` | `string`                 | Nested structures path separator.                              |                    | `__`
+`validate`       | `ValidateOptions`        | Yup scheme validate options.                                   |                    |  
