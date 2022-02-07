@@ -39,10 +39,7 @@ function yupEnv<TShape extends ObjectShape, TContext>(options: Options<TShape, T
     set(input, propertyPath, env[key])
   }
 
-  return schema.validateSync(
-    schema.cast(input),
-    validate,
-  )
+  return schema.validateSync(input, validate)
 }
 
 export default yupEnv

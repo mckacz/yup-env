@@ -230,4 +230,20 @@ describe('yup-env', () => {
       },
     })
   })
+
+  test('yup value transform applies only once', () => {
+    const schema = yup.object()
+      .noUnknown()
+      .shape({
+        foo: yup.number().default(1).transform(v => v * 1000),
+      })
+
+    expect(parse({ schema, env: {} })).toEqual({
+      foo: 1, // from default value
+    })
+
+    expect(parse({ schema, env: { FOO: '12' } })).toEqual({
+      foo: 12000,
+    })
+  })
 })
