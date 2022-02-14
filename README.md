@@ -3,8 +3,6 @@ yup-env
 
 [![CircleCI](https://circleci.com/gh/mckacz/yup-env/tree/master.svg?style=svg)](https://circleci.com/gh/mckacz/yup-env/tree/master) 
 [![npm version](https://badge.fury.io/js/yup-env.svg)](https://badge.fury.io/js/yup-env) 
-[![Dependencies](https://david-dm.org/mckacz/yup-env.svg)](https://david-dm.org/mckacz/yup-env#info=dependencies) 
-[![devDependencies](https://david-dm.org/mckacz/yup-env/dev-status.svg)](https://david-dm.org/mckacz/yup-env/#info=devDependencies)
  [![Known Vulnerabilities](https://snyk.io/test/github/mckacz/yup-env/badge.svg?targetFile=package.json)](https://snyk.io/test/github/mckacz/yup-env?targetFile=package.json)
 
 [![NPM](https://nodei.co/npm/yup-env.png)](https://nodei.co/npm/yup-env/)
