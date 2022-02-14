@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import parse, { ValidateOptions } from './index'
+import parse, { KeyNamingStrategy, ValidateOptions } from './index'
 
 describe('yup-env', () => {
   test('one level', () => {
@@ -244,6 +244,43 @@ describe('yup-env', () => {
 
     expect(parse({ schema, env: { FOO: '12' } })).toEqual({
       foo: 12000,
+    })
+  })
+
+  test('snake case', () => {
+    const schema = yup.object()
+      .noUnknown()
+      .shape({
+        foo:     yup.string(),
+        bar_baz: yup.object()
+                   .noUnknown()
+                   .shape({
+                     qux:         yup.number(),
+                     lorem_ipsum: yup.string(),
+                     deep:        yup.object()
+                                    .noUnknown()
+                                    .shape({
+                                      space_one: yup.number(),
+                                    }),
+                   }),
+      })
+
+    const env = {
+      ABC__BAR_BAZ__QUX:             '123',
+      ABC__BAR_BAZ__DEEP__SPACE_ONE: '1',
+      ABC__BAR_BAZ__LOREM_IPSUM:     'dolor sit amet',
+    }
+
+    const prefix = 'ABC__'
+
+    expect(parse({ schema, env, prefix, keyNamingStrategy: KeyNamingStrategy.snakeCase })).toEqual({
+      bar_baz: {
+        qux:         123,
+        lorem_ipsum: 'dolor sit amet',
+        deep:        {
+          space_one: 1,
+        },
+      },
     })
   })
 })

@@ -1,27 +1,37 @@
-import * as yup from 'yup'
 import set from 'lodash.set'
 import camelcase from 'camelcase'
-import type { ObjectShape as YupObjectShape } from 'yup/lib/object'
-import type { ValidateOptions as YupValidateOptions } from 'yup/lib/types'
+import type { AnyObjectSchema, Asserts } from 'yup'
 
-export type ObjectShape = YupObjectShape
-export type ValidateOptions<TContext = {}> = YupValidateOptions<TContext>
+export type ValidateOptions = Parameters<AnyObjectSchema['validate']>[1]
 
-export interface Options<TShape extends ObjectShape, TContext> {
-  schema: yup.ObjectSchema<TShape>;
+export enum KeyNamingStrategy {
+  camelCase = 'camelCase',
+  snakeCase = 'snakeCase',
+}
+
+export interface Options<TSchema extends AnyObjectSchema> {
+  schema: TSchema;
   env?: Record<string, string | undefined>;
   prefix?: string;
   levelSeparator?: string;
-  validate?: ValidateOptions<TContext>;
+  validate?: ValidateOptions;
+  keyNamingStrategy?: KeyNamingStrategy
 }
 
-function yupEnv<TShape extends ObjectShape, TContext>(options: Options<TShape, TContext>):
-  yup.InferType<yup.ObjectSchema<TShape>> {
+function camelCaseKeyPath(parts: string[]): string[] {
+  return parts.map(part => camelcase(part))
+}
 
-  const { schema, env, prefix, levelSeparator, validate } = {
-    env:            process.env,
-    prefix:         '',
-    levelSeparator: '__',
+function snakeCaseKeyPath(parts: string[]): string[] {
+  return parts.map(part => part.toLowerCase())
+}
+
+function yupEnv<TSchema extends AnyObjectSchema>(options: Options<TSchema>): Asserts<TSchema> {
+  const { schema, env, prefix, levelSeparator, validate, keyNamingStrategy } = {
+    env:               process.env,
+    prefix:            '',
+    levelSeparator:    '__',
+    keyNamingStrategy: KeyNamingStrategy.camelCase,
     ...options,
   }
 
@@ -32,9 +42,12 @@ function yupEnv<TShape extends ObjectShape, TContext>(options: Options<TShape, T
       continue
     }
 
-    const propertyPath = key.substr(prefix.length)
+    const propertyPathParts = key.substr(prefix.length)
       .split(levelSeparator)
-      .map(part => camelcase(part))
+
+    const propertyPath = keyNamingStrategy === KeyNamingStrategy.snakeCase
+      ? snakeCaseKeyPath(propertyPathParts)
+      : camelCaseKeyPath(propertyPathParts)
 
     set(input, propertyPath, env[key])
   }

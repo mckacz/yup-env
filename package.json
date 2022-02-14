@@ -1,6 +1,6 @@
 {
   "name": "yup-env",
-  "version": "1.2.1",
+  "version": "2.0.0-beta.1",
   "description": "Environment variables parsing and validation using yup.",
   "repository": "https://github.com/mckacz/yup-env",
   "author": "Maciej Kaczmarek <maciej@kaczmarek.io>",
@@ -22,12 +22,11 @@
   "devDependencies": {
     "@types/jest": "^27.4.0",
     "@types/lodash.set": "^4.3.6",
-    "@types/node": "^17.0.15",
-    "@types/yup": "^0.29.13",
-    "@typescript-eslint/eslint-plugin": "^5.10.2",
-    "@typescript-eslint/parser": "^5.10.2",
-    "eslint": "^8.8.0",
-    "jest": "^27.5.0",
+    "@types/node": "^17.0.17",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "eslint": "^8.9.0",
+    "jest": "^27.5.1",
     "jest-junit": "^13.0.0",
     "ts-jest": "^27.1.3",
     "typescript": "^4.5.5"

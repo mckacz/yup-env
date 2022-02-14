@@ -11,12 +11,13 @@ yup-env
 
 This is simple library to parse and validate environment variables using `yup` with full TypeScript support.
 
+:zap: Want more complex configuration solution? Try [confres](https://github.com/mckacz/confres) :zap:
+
 ## Installation
 
 You can get latest release with type definitions from NPM:
 
 ```
-npm install @types/yup --save-dev
 npm install yup yup-env --save
 ```
 
@@ -56,15 +57,16 @@ More examples in [examples](./examples) directory.
 The library exposes single function as default export with following signature
 
 ```ts
-function yupEnv<TShape extends object, TContext>(options: Options<TShape, TContext>): yup.InferType<yup.ObjectSchema<T>>; 
+function yupEnv<TSchema extends yup.AnyObjectSchema>(options: Options<TSchema>): yup.Asserts<TSchema>; 
 ```
 
 The function accepts following options:
 
-Name             | Type                     | Description                                                    | Required           | Default value
------------------|--------------------------|----------------------------------------------------------------|--------------------|---- 
-`schema`         | `yup.ObjectSchema`       | Object schema used to cast and validate environment variables. | :heavy_check_mark: |
-`env`            | `Record<string, string>` | Environment variables to process.                              |                    | value of `process.env`
-`prefix`         | `string`                 | Prefix of environment variables names to process.              |                    | `''` (empty string)
-`levelSeparator` | `string`                 | Nested structures path separator.                              |                    | `__`
-`validate`       | `ValidateOptions`        | Yup scheme validate options.                                   |                    |  
+Name                | Type                     | Description                                                    | Required           | Default value
+--------------------|--------------------------|----------------------------------------------------------------|--------------------|---- 
+`schema`            | `yup.ObjectSchema`       | Object schema used to cast and validate environment variables. | :heavy_check_mark: |
+`env`               | `Record<string, string>` | Environment variables to process.                              |                    | value of `process.env`
+`prefix`            | `string`                 | Prefix of environment variables names to process.              |                    | `''` (empty string)
+`levelSeparator`    | `string`                 | Nested structures path separator.                              |                    | `__`
+`validate`          | `ValidateOptions`        | Yup scheme validate options.                                   |                    |  
+`keyNamingStrategy` | `KeyNamingStrategy`      | Key naming strategy.                                           |                    | `KeyNamingStrategy.camelCase`  
