@@ -60,11 +60,11 @@ function yupEnv<TSchema extends yup.AnyObjectSchema>(options: Options<TSchema>):
 
 The function accepts following options:
 
-Name                | Type                     | Description                                                    | Required           | Default value
---------------------|--------------------------|----------------------------------------------------------------|--------------------|---- 
-`schema`            | `yup.ObjectSchema`       | Object schema used to cast and validate environment variables. | :heavy_check_mark: |
-`env`               | `Record<string, string>` | Environment variables to process.                              |                    | value of `process.env`
-`prefix`            | `string`                 | Prefix of environment variables names to process.              |                    | `''` (empty string)
-`levelSeparator`    | `string`                 | Nested structures path separator.                              |                    | `__`
-`validate`          | `ValidateOptions`        | Yup scheme validate options.                                   |                    |  
-`keyNamingStrategy` | `KeyNamingStrategy`      | Key naming strategy.                                           |                    | `KeyNamingStrategy.camelCase`  
+| Name                | Type                     | Description                                                    | Required           | Default value                 |
+|---------------------|--------------------------|----------------------------------------------------------------|--------------------|-------------------------------|
+| `schema`            | `yup.ObjectSchema`       | Object schema used to cast and validate environment variables. | :heavy_check_mark: |                               |
+| `env`               | `Record<string, string>` | Environment variables to process.                              |                    | value of `process.env`        |
+| `prefix`            | `string`                 | Prefix of environment variables names to process.              |                    | `''` (empty string)           |
+| `levelSeparator`    | `string`                 | Nested structures path separator.                              |                    | `__`                          |
+| `validate`          | `ValidateOptions`        | Yup scheme validate options.                                   |                    |                               |
+| `keyNamingStrategy` | `KeyNamingStrategy`      | Key naming strategy.                                           |                    | `KeyNamingStrategy.camelCase` |
